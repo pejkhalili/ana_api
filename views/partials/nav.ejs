@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" id = "nav" >
+    <a class="navbar-brand" href="/">ANA API Console</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" id="mkNav">
+
+        <li class="nav-item" id="console">
+            <a class="nav-link" href="/console">Console <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" id= "apps">
+            <a class="nav-link" href="/console/apps">Apps</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            USER</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/console/user">Infos</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+        </li>
+        </ul>
+        <ul class="navbar-nav ml-auto" id="mkActions">
+            <li class="nav-item hidden" id="mkAddNewApp">
+                <a class="nav-link" href="/console/apps/new"><i class="fas fa-plus-circle"></i></a>
+            </li>
+        </ul>
+    </div>
+</nav>

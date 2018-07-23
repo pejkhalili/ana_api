@@ -1,0 +1,62 @@
+<%- include ./partials/head %>
+
+<div class="row">
+    <div class="offset-md-2 col-md-8">
+        <form method="POST">
+            <div class="form-row">
+                <div class="col-md-8 mb-3">
+                    <label for="appname">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="info@appvana.net"  required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="appname">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" minlength="6" required>
+                </div>
+
+
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-12 mb-3">
+                    <label for="pass">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" minlength="6"  onkeyup="passcheck()" required>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="pass">Confirm Password</label>
+                    <input type="password" class="form-control" id="repassword" name="repassword" minlength="6"  onkeyup="passcheck()" required>
+                </div>
+
+
+
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="invalidCheck3" required>
+                    <label class="form-check-label" for="invalidCheck3">
+                        <a class="muted-text" href="#"><small>Agree to terms and conditions</small></a>
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary" id = "register" name = "register" type="submit"><i class="fas fa-user-plus"></i> Sign-Up</button>
+        </form>
+    </div>
+</div>
+<script>
+
+
+    function passcheck() {
+        let pass = document.getElementById('password').valueOf()
+        let repass = document.getElementById('repassword').valueOf()
+        let signup = document.getElementById('register')
+        if(pass == repass){
+                console.log("match")
+
+        }else{
+                console.log("not match")
+        }
+    }
+
+
+</script>
+<%- include ./partials/foot %>
