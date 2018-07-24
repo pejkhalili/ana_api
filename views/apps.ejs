@@ -5,26 +5,28 @@
     navitem.classList.add("active");
     let mkAddNewApp = document.getElementById('mkAddNewApp');
     mkAddNewApp.classList.remove("hidden");
-    
+
 </script>
 <br>
 <div class="row">
     <div class="col-md-8 offset-md-2">
+
+        <% if (apps !== undefined){ %>
+        <% apps.forEach((app)=>{ %>
+
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Hellogram 1.1</h5>
-              <p class="card-text">Total Active Users : 1200 </p>
-              <a href="/console/apps/1" class="btn btn-primary">View Statics</a>
+                <h5 class="card-title"><%= app.name %></h5>
+                <p class="card-text"><%= app.packname%></p>
+
+                <a href="/console/apps/<%= app.id %>" class="btn btn-primary">View Statics</a>
+
             </div>
         </div>
         <br>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Hellogram 1.2 - ZarinPay</h5>
-                <p class="card-text">Total Active Users : 140 </p>
-                <a href="/console/apps/2" class="btn btn-primary">View Statics</a>
-            </div>
-        </div>
+        <% }) %>
+        <% } %>
+
     </div>
 </div>
 

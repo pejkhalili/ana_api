@@ -1,0 +1,44 @@
+<%- include ./partials/head %>
+<script>
+    let navitem = document.getElementById('apps');
+    navitem.classList.add("active");
+</script>
+
+<% if(app !== undefined) { %>
+
+<div class="row">
+    <div class="offset-md-2 col-md-8">
+        <form method="POST" action="/console/apps/<%= app[0].id %>">
+            <div class="form-row">
+                <div class="col-md-8 mb-3">
+                    <label for="appname">Application Name</label>
+                    <input type="text" class="form-control" id="appname" name="appName" placeholder="My App"  value="<%= app[0].name %>" required>
+
+                </div>
+                <div class="col-md-4 mb-3 ml-auto">
+                    <label for="packName">Package Name</label>
+                    <input type="text" class="form-control" id="packName" name="packName" placeholder="Package Name" value="<%= app[0].packname %>">
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-8 mb-3">
+                    <label for="appname">API Key : <strong><%= app[0].api_key%></strong></label>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="col-md-12 mb-3">
+                    <label for="appname">Application Events</label>
+                    <textarea class="form-control" name = "events" cols="15" rows="5" placeholder="Enter App Events each on a sperate line" required><%= app[0].events %></textarea>
+                </div>
+
+            </div>
+            <hr>
+            <button class="btn btn-primary" name = "UAP" type="submit"><i class="fas fa-plus-circle"></i> Update App</button>
+        </form>
+    </div>
+</div>
+<% } %>
+<%- include ./partials/foot %>

@@ -1,0 +1,27 @@
+<%- include ./partials/head %>
+<script>
+    let navitem = document.getElementById('apps');
+    navitem.classList.add("active");
+</script>
+
+<div class="row">
+    <div class="offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-body">
+
+                <% if(app !== undefined){ %>
+
+                <h5 class="card-title"><%= app.name %> Created Successfully.
+                </h5>
+                <p class="card-text">Your ANA API KEY <br><strong><%= app.api%></strong></p>
+                <p>To send your events you should send post queries to
+                    <code>https://appana.net/v1/[API_KEY]/[JSON_OBJ]</code>
+                </p>
+                <a href="/console/apps" class="btn btn-outline-success">Back To Apps</a>
+
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ./partials/foot %>

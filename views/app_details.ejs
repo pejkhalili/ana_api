@@ -1,4 +1,57 @@
 <%- include ./partials/head %>
+<script>
+    let navitem = document.getElementById('apps');
+    navitem.classList.add("active");
+</script>
 
+
+<% if (app !== undefined){ %>
+<% let events = app[0].events.split("\r\n") %>
+
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title"><%= app[0].name %></h3>
+        <p class="card-text text-muted" style="font-size: 12px;"><%= app[0].packname%></p>
+        <p class="card-text">API KEY: <strong><%= app[0].api_key%></strong></p>
+        <p class="card-text">Events: <strong>
+                <% events.forEach((ev)=>{%>
+                <f class="event bg-dark"><i class="fab fa-codepen"></i> <%= ev %></f>
+                <%})%>
+            </strong></p>
+        <hr>
+        <div class="row">
+            <% if (stat !== undefined){ %>
+            <% stat.forEach((st)=>{ %>
+
+            <div class="col-sm-4" >
+                <div class="card" >
+                    <div class="card-body" >
+                        <h3 class="card-title"><%= st.event.toUpperCase() %></h3>
+                        <p class="card-text text-muted">Version: <%= st.version %></p>
+                        <h4 class="card-text"><%= st.anaCon %></h4>
+                        <small><a class="mkBtn bg-primary"
+                                  href="/console/apps/<%=app[0].id%>/ana/<%=st.version%>/<%=st.event%>"><i class="fas fa-chevron-circle-down"></i> More Details</a></small>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <% }) %>
+
+            <% } %>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12 mkCenterBtnGrp">
+                <a href="/console/apps" class="btn btn-success"><i class="fas fa-chevron-left"></i> Back</a>
+                <a href="/console/apps/<%= app[0].id %>/edit" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                <a href="/console/apps/<%= app[0].id %>/rm" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
 
 <%- include ./partials/foot %>

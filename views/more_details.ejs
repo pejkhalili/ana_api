@@ -1,0 +1,30 @@
+<%- include ./partials/head %>
+<script>
+    let navitem = document.getElementById('apps');
+    navitem.classList.add("active");
+</script>
+
+
+<% if (app !== undefined){ %>
+
+<div class="row">
+    <div class="col-md-2">
+        <a href="/console/apps/<%=appid %>" class="btn btn-success"><i class="fas fa-chevron-left"></i> Back</a>
+    </div>
+
+
+    <div class="col-md-6">
+        <% app.forEach((ap)=>{%>
+        <div class="card">
+            <div class="card-body">
+                <% let HRDate = ap.HRDate.toString().split("00:00:00") %>
+                <h5 class="card-title"><%= HRDate[0] %></h5>
+                <p class="card-text">Count: <strong><%= ap.anaCount%></strong></p>
+            </div>
+        </div>
+
+    </div>
+
+    <% }) } %>
+</div>
+<%- include ./partials/foot %>

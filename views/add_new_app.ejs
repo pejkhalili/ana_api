@@ -1,4 +1,8 @@
 <%- include ./partials/head %>
+<script>
+    let navitem = document.getElementById('apps');
+    navitem.classList.add("active");
+</script>
 
 <div class="row">
     <div class="offset-md-2 col-md-8">
@@ -7,55 +11,41 @@
                 <div class="col-md-8 mb-3">
                     <label for="appname">Application Name</label>
                     <input type="text" class="form-control" id="appname" name="appName" placeholder="My App"  required>
-                    
+
                 </div>
                 <div class="col-md-4 mb-3 ml-auto">
                     <label for="packName">Package Name</label>
                     <input type="text" class="form-control" id="packName" name="packName"placeholder="Package Name">
-                    
+
                 </div>
             </div>
 
-           
+
             <div class="form-row">
                 <div class="col-md-12 mb-3">
                     <label for="appname">Application Events</label>
                     <textarea class="form-control" name = "events" cols="15" rows="5" placeholder="Enter App Events each on a sperate line" required></textarea>
                 </div>
-                
+
             </div>
 
             <!--<div class="form-row">-->
-                    <!--<div class="col-md-12 mb-3">-->
-                            <!--<label for="appname">Application Versions</label>-->
-                            <!--<textarea class="form-control" name = "versions" cols="15" rows="5" placeholder="Enter App Versions each on a sperate line" required></textarea>-->
-                    <!--</div>-->
+            <!--<div class="col-md-12 mb-3">-->
+            <!--<label for="appname">Application Versions</label>-->
+            <!--<textarea class="form-control" name = "versions" cols="15" rows="5" placeholder="Enter App Versions each on a sperate line" required></textarea>-->
+            <!--</div>-->
             <!--</div>-->
             <hr>
             <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="invalidCheck3" required>
-                        <label class="form-check-label" for="invalidCheck3">
-                            <a class="muted-text" href="#"><small>Agree to terms and conditions</small></a>
-                        </label>
-                    </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="invalidCheck3" required>
+                    <label class="form-check-label" for="invalidCheck3">
+                        <a class="muted-text" href="#"><small>Agree to terms and conditions</small></a>
+                    </label>
                 </div>
+            </div>
             <button class="btn btn-primary" name = "NAP" value = "nap2" type="submit"><i class="fas fa-plus-circle"></i> Submit App</button>
         </form>
-    </div>
-
-    <div class="offset-md-2 col-md-8">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{AppName} Created Successfully.
-                </h5>
-                <p class="card-text">Your ANA API KEY <br><strong>8b832b0d2a78f9f3d6330028c26f1130</strong></p>
-                <p>To send your events you should send post queries to 
-                        <code>https://q.appana.net/[API_KEY]/[EVENT]</code>
-                </p>
-                <a href="/console" class="btn btn-outline-success">Back To Console</a>
-            </div>
-        </div>
     </div>
 </div>
 <%- include ./partials/foot %>
