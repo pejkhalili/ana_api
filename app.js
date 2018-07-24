@@ -38,9 +38,47 @@ app.set('views', "./views/");
 //Get Routes
 
 app.get('/',(req,res)=>{
-    res.redirect("/console")
+    let stat = req.session.login | false;
+    return res.render("home",{status:stat});
 });
+app.get("/api/v1/:api/:event/:ver?/:cust?",(req,res)=>{
+    let apiKey = req.params.api.toString();
+    if(apiKey.length >=30){
+        con.query(`Select id,events from APPS Where api_key = '${apiKey}'`,(err,appRes)=>{
+            if(err) throw err
+            let appId = appRes[0].id;
+            let event = req.params.event;
+            // let json =JSON.parse(req.params.json);
+            let version = req.params.ver !== undefined ? req.params.ver : "any";
+            let cust = req.params.cust!== undefined ? req.params.cust : "" ;
+            let events = appRes[0].events.split("\r\n");
+            let runable =false
+            events.forEach(ev => {
+                if(ev.toLowerCase() === event.toLowerCase()){
+                    runable=true;
+                }
+            });
+            if(runable){
+                con.query(`INSERT INTO ANAT (event,app,version,cust) values('${event.toLowerCase()}','${appId}','${version}','${cust}')`,(err)=>{
+                    if(err) throw err;
+                    return res.send({'result':true ,'event':"\'" + event.toLowerCase() + "\'" });     
+                });
 
+
+
+            }else{
+                return res.send({'result':false ,'error':'Undefined Event'});        
+            }
+            
+        });
+
+    }else{
+        return res.send({'result':false ,'error':'Incorrect API KEY'});
+    }
+
+    
+
+});
 
 app.get('/register', (req,res)=>{return res.render('sign_up') });
 
@@ -247,7 +285,9 @@ app.get('/console/user', (req,res)=>{
 //Posts Routes
 
 
-
+app.get("*",(req,res)=>{
+    res.redirect("/");
+})
 
 const PORT = process.env.PORT || 5000;
 
