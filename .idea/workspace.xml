@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0cc70f4-a045-4f2d-8bce-56af4ae5de52" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/js.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/js.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/add_new_app.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/add_new_app.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/app_details.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/app_details.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/apps.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/apps.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/editApp.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/editApp.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/more_details.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/more_details.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/newApp.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/newApp.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/sign_up.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/sign_up.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/user.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/user.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/nav.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/nav.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,17 +24,17 @@
       <file leaf-file-name="index.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="36" column="67" selection-start-line="36" selection-start-column="67" selection-end-line="36" selection-end-column="67" />
+            <state relative-caret-position="378">
+              <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="108" column="3" selection-start-line="108" selection-start-column="3" selection-end-line="108" selection-end-column="3" />
+            <state relative-caret-position="288">
+              <caret line="302" column="46" selection-start-line="302" selection-start-column="46" selection-end-line="302" selection-end-column="46" />
               <folding>
                 <element signature="e#364#442#0" />
                 <element signature="e#308#412#0" />
@@ -56,13 +45,18 @@
                 <element signature="e#2922#3029#0" />
                 <element signature="e#3063#3750#0" />
                 <element signature="e#3782#3850#0" />
-                <element signature="e#4288#4997#0" />
+                <element signature="e#3934#5201#0" />
                 <element signature="e#5038#5456#0" />
                 <element signature="e#5500#5667#0" />
                 <element signature="e#5711#6378#0" />
                 <element signature="e#6422#7117#0" />
                 <element signature="e#7164#7493#0" />
                 <element signature="e#7538#7979#0" />
+                <element signature="e#8533#8700#0" />
+                <element signature="e#8748#9415#0" />
+                <element signature="e#9462#10157#0" />
+                <element signature="e#10209#10538#0" />
+                <element signature="e#10588#11029#0" />
                 <element signature="e#8042#8660#0" />
                 <element signature="e#8714#9284#0" />
                 <element signature="e#9327#9775#0" />
@@ -70,6 +64,24 @@
                 <element signature="e#10015#10041#0" />
                 <element signature="e#10104#10152#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sharedApps.ejs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/sharedApps.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nav.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/partials/nav.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="48" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -101,7 +113,6 @@
         <option value="$PROJECT_DIR$/public/css/style.css" />
         <option value="$PROJECT_DIR$/views/partials/head.ejs" />
         <option value="$PROJECT_DIR$/views/partials/foot.ejs" />
-        <option value="$PROJECT_DIR$/views/partials/nav.ejs" />
         <option value="$PROJECT_DIR$/views/home.ejs" />
         <option value="$PROJECT_DIR$/views/sign_up.ejs" />
         <option value="$PROJECT_DIR$/views/login.ejs" />
@@ -115,6 +126,8 @@
         <option value="$PROJECT_DIR$/views/user.ejs" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/views/partials/nav.ejs" />
+        <option value="$PROJECT_DIR$/views/sharedApps.ejs" />
       </list>
     </option>
   </component>
@@ -136,7 +149,7 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="width" value="281" />
+    <option name="width" value="1079" />
     <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -226,18 +239,18 @@
       <workItem from="1532364073170" duration="1625000" />
       <workItem from="1532415652661" duration="21129000" />
       <workItem from="1532437847521" duration="18000" />
-      <workItem from="1532504279948" duration="15932000" />
+      <workItem from="1532504279948" duration="21497000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48540000" />
+    <option name="totallyTimeSpent" value="54105000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1102" height="1080" extended-state="4" />
+    <frame x="0" y="0" width="1079" height="1080" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4976599" visible="true" weight="0.20054446" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4976599" visible="true" weight="0.20481928" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.3294979" />
@@ -245,7 +258,7 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49947917" visible="true" weight="0.3294979" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49947917" visible="true" weight="0.3294979" />
       <window_info id="Favorites" order="2" sideWeight="0.5023401" side_tool="true" weight="0.32916668" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -264,6 +277,17 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app.js</url>
+          <properties lambdaOrdinal="-1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="2" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/views/index.ejs">
@@ -325,13 +349,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="31" selection-end-line="227" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/nav.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="72" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="72" />
         </state>
       </provider>
     </entry>
@@ -421,15 +438,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="67" selection-start-line="36" selection-start-column="67" selection-end-line="36" selection-end-column="67" />
+        <state relative-caret-position="378">
+          <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="108" column="3" selection-start-line="108" selection-start-column="3" selection-end-line="108" selection-end-column="3" />
+        <state relative-caret-position="288">
+          <caret line="302" column="46" selection-start-line="302" selection-start-column="46" selection-end-line="302" selection-end-column="46" />
           <folding>
             <element signature="e#364#442#0" />
             <element signature="e#308#412#0" />
@@ -440,13 +457,18 @@
             <element signature="e#2922#3029#0" />
             <element signature="e#3063#3750#0" />
             <element signature="e#3782#3850#0" />
-            <element signature="e#4288#4997#0" />
+            <element signature="e#3934#5201#0" />
             <element signature="e#5038#5456#0" />
             <element signature="e#5500#5667#0" />
             <element signature="e#5711#6378#0" />
             <element signature="e#6422#7117#0" />
             <element signature="e#7164#7493#0" />
             <element signature="e#7538#7979#0" />
+            <element signature="e#8533#8700#0" />
+            <element signature="e#8748#9415#0" />
+            <element signature="e#9462#10157#0" />
+            <element signature="e#10209#10538#0" />
+            <element signature="e#10588#11029#0" />
             <element signature="e#8042#8660#0" />
             <element signature="e#8714#9284#0" />
             <element signature="e#9327#9775#0" />
@@ -454,6 +476,20 @@
             <element signature="e#10015#10041#0" />
             <element signature="e#10104#10152#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/partials/nav.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="48" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/sharedApps.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
         </state>
       </provider>
     </entry>

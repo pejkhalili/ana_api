@@ -23,24 +23,24 @@
             <div class="card-body">
                 <h5 class="card-title">Applications</h5>
                 <p class="card-text">Total Applications: <%= apps[0].appCount %> </p>
-                <a href="/console/apps" class="btn btn-primary">View Statics</a>
+                <a href="/console/apps" class="btn btn-primary">View Apps</a>
             </div>
         </div>
 
         <% } %>
     </div>
+    <% if(shared !== undefined){ %>
     <div class="col-sm-6">
-        <% if(shared !== undefined){ %>
+
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Shared Applications</h5>
                 <p class="card-text">Total Applications: <%= shared %> </p>
-                <a href="/console/apps" class="btn btn-primary">View Statics</a>
+                <a href="/console/sharedApps/" class="btn btn-primary">View Apps</a>
             </div>
         </div>
-
-        <% } %>
     </div>
+    <% } %>
 </div>
 
 

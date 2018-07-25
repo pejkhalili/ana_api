@@ -1,0 +1,45 @@
+<%- include ./partials/head %>
+
+<% if (user != undefined){%>
+<span id = "userName" class="sr-only" type="hidden"><%= user %></span>
+<% } %>
+
+
+<script>
+    let navitem = document.getElementById('sharedApps');
+    navitem.classList.add("active");
+    let mkAddNewApp = document.getElementById('mkAddNewApp');
+    mkAddNewApp.classList.remove("hidden");
+
+</script>
+<br>
+<div class="row">
+
+
+        <% if (apps !== undefined){ %>
+        <% apps.forEach((app)=>{ %>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <small>
+                    <p class="card-text text-muted">From: <%= app.username%></p>
+                </small>
+                <h4 class="card-title"><%= app.name %></h4>
+                <small>
+                    <p class="card-text text-muted"><%= app.packname%></p>
+                </small>
+<br>
+                <a href="/console/sharedApps/<%= app.username%>/<%= app.id %>" class="btn btn-primary">View Statics</a>
+
+            </div>
+        </div>
+        <br>
+    </div>
+        <% }) %>
+        <% } %>
+
+
+</div>
+
+
+<%- include ./partials/foot %>
