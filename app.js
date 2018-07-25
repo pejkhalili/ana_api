@@ -7,15 +7,7 @@ const app = express();
 const md5 = require('md5');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
-app.use(session({
-    secret: 'ana_api',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
-}))
-
-
+const PORT = process.env.PORT || 5000;
 
 let con = mysql.createConnection({
     host:'localhost',
@@ -24,24 +16,28 @@ let con = mysql.createConnection({
     database:'ana_api'
 });
 
+app.use(session({
+    secret: 'ana_api',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}))
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static("public"));
+app.set('view engine','ejs');
+app.set('views', "./views/");
 con.connect((err)=>{
     if(err) throw err;
     console.log("Local Connected.");
 });
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("public"));
-app.set('view engine','ejs');
-app.set('views', "./views/");
-
-
-//Get Routes
-
-app.get('/',(req,res)=>{
+app.get('/',
+    (req,res)=>{
     let stat = req.session.login | false;
     return res.render("home",{status:stat});
 });
-app.get("/api/v1/:api/:event/:ver?/:cust?",(req,res)=>{
+app.get("/api/v1/:api/:event/:ver?/:cust?",
+    (req,res)=>{
     let apiKey = req.params.api.toString();
     if(apiKey.length >=30){
         con.query(`Select id,events from APPS Where api_key = '${apiKey}'`,(err,appRes)=>{
@@ -61,28 +57,28 @@ app.get("/api/v1/:api/:event/:ver?/:cust?",(req,res)=>{
             if(runable){
                 con.query(`INSERT INTO ANAT (event,app,version,cust) values('${event.toLowerCase()}','${appId}','${version}','${cust}')`,(err)=>{
                     if(err) throw err;
-                    return res.send({'result':true ,'event':"\'" + event.toLowerCase() + "\'" });     
+                    return res.send({'result':true ,'event':"\'" + event.toLowerCase() + "\'" });
                 });
 
 
 
             }else{
-                return res.send({'result':false ,'error':'Undefined Event'});        
+                return res.send({'result':false ,'error':'Undefined Event'});
             }
-            
+
         });
 
     }else{
         return res.send({'result':false ,'error':'Incorrect API KEY'});
     }
 
-    
+
 
 });
-
-app.get('/register', (req,res)=>{return res.render('sign_up') });
-
-app.post('/register', (req,res)=>{
+app.get('/register',
+    (req,res)=>{return res.render('sign_up') });
+app.post('/register',
+    (req,res)=>{
     if(req.body.password != req.body.repassword) return res.redirect("/register")
     let salt = bcrypt.genSaltSync(saltRounds);
     let hash = bcrypt.hashSync(req.body.password,salt);
@@ -102,10 +98,8 @@ app.post('/register', (req,res)=>{
     return res.redirect('/console');
 
 });
-
-
-
-app.get('/login', (req,res)=>{
+app.get('/login',
+    (req,res)=>{
 
     if(req.session.login){
         return res.render('index')
@@ -113,8 +107,8 @@ app.get('/login', (req,res)=>{
 
 
 });
-
-app.post("/login",(req,res)=> {
+app.post("/login",
+    (req,res)=> {
     const uname = req.body.username;
     const pass = req.body.password;
 
@@ -140,40 +134,66 @@ app.post("/login",(req,res)=> {
 
 
 });
-app.get('/logout',(req,res)=>{
+app.get('/logout',
+    (req,res)=>{
     req.session.login = false
     return res.redirect("/login");
 })
-
-app.get('/console', (req,res)=> {
+app.get('/console',
+    (req,res)=> {
     if (req.session.login) {
         let uname = req.session.username;
         let user_id =req.session.userId;
-        con.query(`Select count(*) as appCount from APPS Where owner = '${user_id}' `,(err,appsRes)=>{
-            if (err) throw  err;
-            return res.render('index', {user: uname,apps: appsRes});
+        con.query(`select Distinct owner from SHARE Where guest = ${user_id}`,(err,sharedOwners)=>{
+            if (err)  console.log("FIRST>>>"+err)
+            let owners = [];
+            sharedOwners.forEach((sharedOwner)=>{
+                owners.push(sharedOwner.owner);
+            });
+            let appsCount=0;
+            owners.forEach((owner)=>{
+                con.query(`select count(*) as AppCount from APPS where owner= '${owner}'`,(err,sharedApps)=>{
+                    if (err)   console.log("IN LOOP>>>"+err)
+                    if(sharedApps.length>0) appsCount += parseInt(sharedApps[0].AppCount)
+                });
+            })
+
+            con.query(`Select count(*) as appCount from APPS Where owner = '${user_id}'`,(err,appsRes)=>{
+                if (err)   console.log("THIRD>>>"+err)
+                console.log(">.>>>>" + JSON.stringify(appsCount));
+                res.render('index', {user: uname,apps: appsRes,shared:appsCount});
+            });
+
+
         });
 
-    } else return res.render('login')
+    }else return res.render('login')
 });
-app.get('/console/apps', (req,res)=>{
+app.get('/console/apps',
+    (req,res)=>{
     if(req.session.login){
+        let uname = req.session.username;
         const userid = req.session.userId;
         const username = req.session.username;
         con.query(`SELECT id,name,packname From APPS Where owner = ${userid}`,(err,results)=>{
             if (err) throw err;
-            return res.render('apps',{apps:results});
+            return res.render('apps',{user:uname,apps:results});
         })
     }else{
         return res.render('login');
     }
 });
-app.get('/console/apps/new', (req,res)=> {
-    if (req.session.login) return res.render('add_new_app');
-    else return res.render('login');
+app.get('/console/apps/new',
+    (req,res)=> {
+    if (req.session.login) {
+        let uname = req.session.username;
+        return res.render('add_new_app',{user:uname});
+    }else return res.render('login');
 });
-app.post('/console/apps/new', (req,res)=>{
+app.post('/console/apps/new',
+    (req,res)=>{
     if(req.session.login){
+        let uname = req.session.username;
         console.log(req.body)
         let u = {};
         u.owner = req.session.userId;
@@ -186,56 +206,63 @@ app.post('/console/apps/new', (req,res)=>{
                     values ('${u.owner}','${u.name}','${u.pack}','${u.api}','${u.events}')`,
             (err)=>{
                 if (err) throw err;
-                return res.render('newApp',{app:u});
+                return res.render('newApp',{user:uname,app:u});
             });
 
     }
     else return res.render('login')
 });
-
-app.get('/console/apps/:id', (req,res)=>{
+app.get('/console/apps/:id',
+    (req,res)=>{
     let id = req.params.id;
     let user_id = req.session.userId;
+    let uname = req.session.username;
     console.log("own" + user_id + " id" + id);
     con.query(`select * From APPS where id = '${id}' and owner='${user_id}'`,(err,getApp)=>{
         if(err) throw err;
         if (getApp !== undefined){
-            con.query(`Select event,version, count(*) as anaCon from ANAT Where app='${id}' group by event,version `,(err,appStats)=>{
+            con.query(`Select event,version, count(*) as anaCon from ANAT Where app='${id}' group by event `,(err,appStats)=>{
                 if (err) throw err
-                return res.render('app_details',{app:getApp,stat:appStats});
+                return res.render('app_details',{user:uname,app:getApp,stat:appStats});
             });
         }
         console.log(getApp);
         // return res.render('app_details',{app:getApp,stat:undefined});
     });
 });
-app.get('/console/apps/:id/edit',(req,res)=>{
+app.get('/console/apps/:id/edit',
+    (req,res)=>{
     if (req.session.login) {
         let id = req.params.id;
+        let uname = req.session.username;
         con.query(`select id,name,packname,events,api_key from APPS where id = ${id}`,(err,edApp)=>{
-            return res.render('editApp',{app:edApp});
+            return res.render('editApp',{user:uname, app:edApp});
         })
 
 
     }
     else return res.render('login');
 });
-app.get('/console/apps/:id/rm',(req,res)=>{
+app.get('/console/apps/:id/rm',
+    (req,res)=>{
     if (req.session.login) {
         let id = req.params.id;
+        let uname = req.session.username;
         con.query(`Delete from ANAT where app = ${id}`,(err)=>{
             if(err) throw err;
             con.query(`Delete from APPS where id = ${id}`,(err)=>{
                 if(err) throw err;
-                return res.redirect('/console/apps');
+                return res.redirect('/console/apps',{user:uname});
             });
         });
     }
     else return res.render('login');
 });
 
-app.get('/console/apps/:id/ana/:version/:event',(req,res)=>{
+app.get('/console/apps/:id/ana/:version/:event',
+    (req,res)=>{
     if (req.session.login) {
+        let uname = req.session.username;
         let version = req.params.version;
         let event = req.params.event;
         let appId = req.params.id;
@@ -243,7 +270,7 @@ app.get('/console/apps/:id/ana/:version/:event',(req,res)=>{
                 app='${appId}' and version = '${version}' and event = '${event}' group by Date(time) order by HRDate `,
             (err,moreDetails)=>{
                 if(err) throw  err;
-                return res.render('more_details',{app:moreDetails,appid:appId});
+                return res.render('more_details',{user:uname, app:moreDetails,appid:appId});
             });
 
     }
@@ -252,7 +279,27 @@ app.get('/console/apps/:id/ana/:version/:event',(req,res)=>{
 
 });
 
-app.post('/console/apps/:id',(req,res)=>{
+app.get('/console/apps/:id/ana/:event',
+    (req,res)=>{
+    if (req.session.login) {
+        let uname = req.session.username;
+        let event = req.params.event;
+        let appId = req.params.id;
+        con.query(`select version,Date(time) as HRDate,Count(*) as anaCount from ANAT where 
+                app='${appId}' and event = '${event}' group by Date(time),version order by HRDate DESC `,
+            (err,moreDetails)=>{
+                if(err) throw  err;
+                return res.render('more_details',{user:uname, app:moreDetails,appid:appId});
+            });
+
+    }
+    else return res.render('login');
+
+
+});
+app.post('/console/apps/:id',
+    (req,res)=>{
+
     let appId = req.params.id;
     let name = req.body.appName;
     let packname = req.body.packName;
@@ -266,36 +313,20 @@ app.post('/console/apps/:id',(req,res)=>{
         }
     });
 });
-
-app.get('/console/events', (req,res)=>{
-    return res.render('events');
+app.get('/console/user',
+    (req,res)=>{
+    if(req.session.login){
+        let uname = req.session.username;
+        return res.render('user',{user:uname});
+    }else res.redirect("/login");
 });
-app.get('/console/events/new', (req,res)=>{
-    return res.render('add_new_event');
-});
-app.get('/console/appVersions', (req,res)=>{
-});
-
-app.get('/console/user', (req,res)=>{
-    return res.render('user');
-
-});
-
-
-//Posts Routes
-
 
 app.get("*",(req,res)=>{
     res.redirect("/");
 })
 
-const PORT = process.env.PORT || 5000;
+
 
 app.listen(PORT,()=>{
     console.log( `SERVER IS UP ON ${PORT}`);
 });
-
-//
-// async function checkPass(hash,pass) {
-//     return await  bcrypt.compare(pass,hash);
-// }

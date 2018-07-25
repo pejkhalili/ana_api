@@ -1,39 +1,47 @@
 <%- include ./partials/head %>
+<% if (user != undefined){%>
+<span id = "userName" class="sr-only" type="hidden"><%= user %></span>
+<% } %>
+
+
+
+
 <script>
     let navitem = document.getElementById('console');
     navitem.classList.add("active");
-    function userNameAdd(username) {
-        let un = document.getElementById("navUserName");
-        un.innerText = username;
-    }
+
+    let un = document.getElementById("navUserName");
+    let u = document.getElementById("userName").innerText;
+    un.innerText =" "+u ;
 
 
 </script>
 <div class="row">
     <div class="col-sm-6">
-<% if(apps !== undefined){ %>
-
-
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Applications</h5>
-        <p class="card-text">Total Applications: <%= apps[0].appCount %> </p>
-        <a href="/console/apps" class="btn btn-primary">View Statics</a>
-    </div>
-</div>
-
-<% } %>
-    </div>
-    <div class="col-sm-4">
+        <% if(apps !== undefined){ %>
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Users</h5>
-                <p class="card-text">Total Active Users : 0 </p>
+                <h5 class="card-title">Applications</h5>
+                <p class="card-text">Total Applications: <%= apps[0].appCount %> </p>
+                <a href="/console/apps" class="btn btn-primary">View Statics</a>
             </div>
         </div>
+
+        <% } %>
+    </div>
+    <div class="col-sm-6">
+        <% if(shared !== undefined){ %>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Shared Applications</h5>
+                <p class="card-text">Total Applications: <%= shared %> </p>
+                <a href="/console/apps" class="btn btn-primary">View Statics</a>
+            </div>
+        </div>
+
+        <% } %>
     </div>
 </div>
-
 
 
 <%- include ./partials/foot %>

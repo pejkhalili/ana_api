@@ -1,4 +1,9 @@
 <%- include ./partials/head %>
+
+<% if (user != undefined){%>
+<span id = "userName" class="sr-only" type="hidden"><%= user %></span>
+<% } %>
+
 <script>
     let navitem = document.getElementById('apps');
     navitem.classList.add("active");
@@ -28,10 +33,10 @@
                 <div class="card" >
                     <div class="card-body" >
                         <h3 class="card-title"><%= st.event.toUpperCase() %></h3>
-                        <p class="card-text text-muted">Version: <%= st.version %></p>
+                        <!--<p class="card-text text-muted">Version: <%= st.version %></p>-->
                         <h4 class="card-text"><%= st.anaCon %></h4>
                         <small><a class="mkBtn bg-primary"
-                                  href="/console/apps/<%=app[0].id%>/ana/<%=st.version%>/<%=st.event%>"><i class="fas fa-chevron-circle-down"></i> More Details</a></small>
+                                  href="/console/apps/<%=app[0].id%>/ana/<%=st.event%>"><i class="fas fa-chevron-circle-down"></i> More Details</a></small>
                     </div>
                 </div>
 

@@ -1,4 +1,9 @@
 <%- include ./partials/head %>
+
+<% if (user != undefined){%>
+<span id = "userName" class="sr-only" type="hidden"><%= user %></span>
+<% } %>
+
 <script>
     let navitem = document.getElementById('apps');
     navitem.classList.add("active");
@@ -37,6 +42,8 @@
             </div>
             <hr>
             <button class="btn btn-primary" name = "UAP" type="submit"><i class="fas fa-plus-circle"></i> Update App</button>
+            <a href="/console/apps/<%= app[0].id %>" class="btn btn-danger" style="color: white" ><i class="fas fa-chevron-left"></i> Cancel </a>
+
         </form>
     </div>
 </div>

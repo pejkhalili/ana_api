@@ -1,5 +1,10 @@
 <%- include ./partials/head %>
 
+<% if (user != undefined){%>
+<span id = "userName" class="sr-only" type="hidden"><%= user %></span>
+<% } %>
+
+
 <script>
     let navitem = document.getElementById('apps');
     navitem.classList.add("active");
