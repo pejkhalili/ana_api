@@ -263,12 +263,11 @@ app.get('/console/apps/:id/rm',
         else return res.render('login');
     });
 
-app.get('/console/sharedApps',
+app.get('/console/sharedApps/',
     (req,res)=>{
         if(req.session.login){
             let uname = req.session.username;
             const userid = req.session.userId;
-            const username = req.session.username;
 
             let owners = [];
             let appData = [];
@@ -281,16 +280,23 @@ app.get('/console/sharedApps',
 
 
                 owners.forEach((own)=>{
+                    console.log(JSON.stringify(own));
                     if(parseInt(own.level) < 5){
                         con.query(`select USERS.id as uid,USERS.username as username,APPS.id as id,name,packname 
                         From APPS left join USERS ON APPS.owner = USERS.id where APPS.owner = '${own.owner}' `,(err,linkProf)=>{
                             if(err) throw console.log("in Prof Loop "+err);
-                            linkProf.forEach((lP)=>{ appData.push(lP)});
+                            linkProf.forEach((lP)=>{
+                                // lP['id'] = own.id;
+                                appData.push(lP);
+                                console.log("LP>>>>"+ JSON.stringify(lP));
+                            });
                             console.log("LP>>>>"+ JSON.stringify(linkProf));
                         });
                     }else if( parseInt(own.level) >= 5){
-                        con.query(`select id,name,packname From APPS Where id = '${own.app_id}'`,(err,appLink)=>{
+                        con.query(`select USERS.id as uid,USERS.username as username,APPS.id as id,name,packname 
+                        From APPS left join USERS ON APPS.owner = USERS.id where APPS.id = '${own.app_id}'`,(err,appLink)=>{
                             if(err) throw console.log("in App Loop "+err);
+                            // appLink[0]['id'] = own.id;
                             console.log("AP>>>>"+ JSON.stringify(appLink));
                             appData.push(appLink[0]);
                         });
@@ -308,6 +314,29 @@ app.get('/console/sharedApps',
             return res.render('login');
         }
     });
+
+app.get('/console/sharedApps/:username/:id',
+    (req,res)=>{
+        let id = req.params.id;
+        let username = req.params.username;
+        let uname = req.session.username;
+        console.log("own " + username + " id " + id);
+
+        con.query(`select * From APPS where id = '${id}' and owner = (select id from USERS where username = '${username}')`,(err,getApp)=>{
+            if (err) throw console.log(err);
+            if (getApp !== undefined){
+                con.query(`Select event,version,count(*) as anaCon from ANAT Where app='${id}' group by event `,(err,appStats)=>{
+                    if (err) throw console.log(err);
+                    return res.render('sharedAppDetails',{user:uname,sharedUser:username,app:getApp,stat:appStats});
+                });
+            }
+            console.log(getApp);
+            // return res.render('app_details',{app:getApp,stat:undefined});
+        });
+    });
+
+
+
 app.get('/console/sharedApps/new',
     (req,res)=> {
         if (req.session.login) {
@@ -337,24 +366,27 @@ app.post('/console/sharedApps/new',
         }
         else return res.render('login')
     });
-app.get('/console/sharedApps/:username/:id',
+app.get('/console/sharedApps/:username/:id/ana/:event',
     (req,res)=>{
-        let id = req.params.id;
-        let user_id = req.session.userId;
-        let uname = req.session.username;
-        console.log("own" + user_id + " id" + id);
-        con.query(`select * From APPS where id = '${id}' and owner='${user_id}'`,(err,getApp)=>{
-            if(err) throw err;
-            if (getApp !== undefined){
-                con.query(`Select event,version, count(*) as anaCon from ANAT Where app='${id}' group by event `,(err,appStats)=>{
-                    if (err) throw err
-                    return res.render('app_details',{user:uname,app:getApp,stat:appStats});
+        if (req.session.login) {
+            let uname = req.session.username;
+            let event = req.params.event;
+            let appId = req.params.id;
+            let shUser = req.params.username;
+            con.query(`select version,Date(time) as HRDate,Count(*) as anaCount from ANAT where 
+                app='${appId}' and event = '${event}' group by Date(time),version order by HRDate DESC `,
+                (err,moreDetails)=>{
+                    if(err) throw  err;
+                    return res.render('sharedAppsMoreDetails',{user:uname, app:moreDetails,appid:appId,sharedUser:shUser});
                 });
-            }
-            console.log(getApp);
-            // return res.render('app_details',{app:getApp,stat:undefined});
-        });
+
+        }
+        else return res.render('login');
+
+
     });
+
+
 app.get('/console/sharedApps/:id/edit',
     (req,res)=>{
         if (req.session.login) {

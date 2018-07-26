@@ -1,0 +1,40 @@
+<%- include ./partials/head %>
+
+<% if (user != undefined){%>
+<span id = "userName" class="sr-only" type="hidden"><%= user %></span>
+<% } %>
+
+<script>
+    let navitem = document.getElementById('sharedApps');
+    navitem.classList.add("active");
+</script>
+
+
+<% if (app !== undefined){ %>
+
+<div class="row">
+    <div class="col-md-2">
+        <a href="/console/sharedApps/<%= sharedUser %>/<%=appid %>" class="btn btn-success"><i class="fas fa-chevron-left"></i> Back</a>
+    </div>
+
+
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <% app.forEach((ap)=>{%>
+                <div class="card">
+                    <div class="card-body">
+                        <% let HRDate = ap.HRDate.toString().split("00:00:00") %>
+                        <h5 class="card-title"><%= HRDate[0] %></h5>
+                        <p class="card-text text-muted">Version: <%= ap.version %></p>
+                        <p class="card-text">Count: <strong><%= ap.anaCount%></strong></p>
+                    </div>
+                </div>
+                <br>
+                <% }) } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ./partials/foot %>

@@ -5,7 +5,7 @@
 <% } %>
 
 <script>
-    let navitem = document.getElementById('apps');
+    let navitem = document.getElementById('sharedApps');
     navitem.classList.add("active");
 </script>
 
@@ -37,7 +37,7 @@
                         <!--<p class="card-text text-muted">Version: <%= st.version %></p>-->
                         <h4 class="card-text"><%= st.anaCon %></h4>
                         <small><a class="mkBtn bg-primary"
-                                  href="/console/apps/<%=app[0].id%>/ana/<%=st.event%>"><i class="fas fa-chevron-circle-down"></i> More Details</a></small>
+                                  href="/console/sharedApps/<%= sharedUser %>/<%=app[0].id%>/ana/<%=st.event%>"><i class="fas fa-chevron-circle-down"></i> More Details</a></small>
                     </div>
                 </div>
 
@@ -51,9 +51,9 @@
         <hr>
         <div class="row">
             <div class="col-md-12 mkCenterBtnGrp">
-                <a href="/console/apps" class="btn btn-success"><i class="fas fa-chevron-left"></i> Back</a>
-                <a href="/console/apps/<%= app[0].id %>/edit" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
-                <a href="/console/apps/<%= app[0].id %>/rm" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                <a href="/console/sharedApps" class="btn btn-success"><i class="fas fa-chevron-left"></i> Back</a>
+                <!--<a href="/console/apps/<%= app[0].id %>/edit" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>-->
+                <!--<a href="/console/apps/<%= app[0].id %>/rm" class="btn btn-danger"><i class="fas fa-trash"></i> Remove</a>-->
             </div>
         </div>
     </div>
